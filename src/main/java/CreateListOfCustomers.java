@@ -14,7 +14,7 @@ public class CreateListOfCustomers {
         this.rawCustomerList = rawCustomerList;
         getMinMaxLengthOfCustomerValues();
         filterList();
-        createCustomers();
+        createCustomersFromRawCustomersData();
     }
 
     public void getMinMaxLengthOfCustomerValues(){
@@ -39,12 +39,22 @@ public class CreateListOfCustomers {
         rawCustomerList=temp;
     }
 
-    public void createCustomers(){
-        for(int i = 0; i<rawCustomerList.size(); i++){
+    public void createCustomersFromRawCustomersData() {
 
-                Customer c = new Customer(rawCustomerList.get(i));
-                listOfCustomers.add(c);
+        int actualIndex=0;
+        for (int i = 0; i < rawCustomerList.size(); i++) {
+            if (    listOfCustomers.size() != 0
+                    &&
+                    rawCustomerList.get(i).contains(listOfCustomers.get(actualIndex-1).getBestellnummer()))
+                    {
+
+                listOfCustomers.get(actualIndex - 1).addOneMoreArticle(rawCustomerList.get(i));
+            }else{
+                listOfCustomers.add(new Customer(rawCustomerList.get(i)));
+                actualIndex++;
+
             }
+        }
 
     }
 }

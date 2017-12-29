@@ -22,7 +22,9 @@ public class Customer {
     public Customer(String data){
         this.data=data;
         distributeData();
+
         addArticleFromRawData();
+        System.out.println(toString());
     }
 
 
@@ -119,4 +121,21 @@ public class Customer {
         this.postalCode = postalCode;
     }
 
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "data='" + data + '\'' +
+                ", bestelldatum='" + bestelldatum + '\'' +
+                ", bestellnummer='" + bestellnummer + '\'' +
+                ", name='" + name + '\'' +
+                ", mail='" + mail + '\'' +
+                ", adress1='" + adress1 + '\'' +
+                ", adress2='" + adress2 + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", listOfAllArticles=" + listOfAllArticles +
+                ", article=" + article +
+                '}';
+    }
 }
