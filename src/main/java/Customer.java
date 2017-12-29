@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -5,7 +6,7 @@ import java.util.List;
  */
 public class Customer {
     private String data;
-
+    private String bestelldatum;
     private String bestellnummer;
     private String name;
     private String mail;
@@ -14,24 +15,60 @@ public class Customer {
     private String city;
     private String country;
     private String postalCode;
-    protected List<List> listOfAllArticles;
+    private List<List> listOfAllArticles = new ArrayList<List>();
+    private List<String> article;
+
 
     public Customer(String data){
         this.data=data;
-        System.out.println(data);
         distributeData();
+        addArticleFromRawData();
     }
+
+
 
     public void distributeData(){
         String[] values = data.split("\t");
         bestellnummer = values[Defines.Customer.BESTELLNUMMER];
-        /*name;
-        mail;
-        adress1;
-        adress2;
-        city;
-        country;
-        postalCode;*/
+        name=values[Defines.Customer.NAME];
+        mail=values[Defines.Customer.MAIL];
+        adress1=values[Defines.Customer.ADRESSE1];
+        adress2=values[Defines.Customer.ADRESSE2];
+        city=values[Defines.Customer.STADT];
+        country=values[Defines.Customer.LAND];
+        postalCode=values[Defines.Customer.PLZ];
+        bestelldatum=values[Defines.Customer.BESTELLDATUM];
+
+    }
+
+    public void addArticleFromRawData(){
+        String[] positionsOfRawData = data.split("\t");
+        article= new ArrayList<String>();
+        //List Article: Stückzahl, Artikelbezeichnung, Währung, Preis, Preis_Mwst, Versand, Versand_Mwst, Rabatte ,
+        article.add(positionsOfRawData[Defines.Article.STÜCKZAHL]);
+        article.add(positionsOfRawData[Defines.Article.ARTIKLEBEZEICHNUNG]);
+        article.add(positionsOfRawData[Defines.Article.WÄHRUNG]);
+        article.add(positionsOfRawData[Defines.Article.PREIS]);
+        article.add(positionsOfRawData[Defines.Article.PREIS_MWST]);
+        article.add(positionsOfRawData[Defines.Article.VERSANDKOSTEN]);
+        article.add(positionsOfRawData[Defines.Article.VERSANDKOSTEN_MWST]);
+        article.add(positionsOfRawData[Defines.Article.RABATTE]);
+        listOfAllArticles.add(article);
+    }
+
+    public void addOneMoreArticle(String data){
+        this.data=data;
+        addArticleFromRawData();
+    }
+
+
+
+
+    public String getBestelldatum() {
+        return bestelldatum;
+    }
+    public void setBestelldatum(String bestelldatum) {
+        this.bestelldatum = bestelldatum;
     }
     public String getBestellnummer() {
         return bestellnummer;

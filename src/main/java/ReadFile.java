@@ -16,7 +16,6 @@ public class ReadFile {
         file = path;
     }
 
-
     public List<String> getRawDataOfCustomers() throws IOException {
         Path p1 = Paths.get(file);
         List<String> list = Files.readAllLines(p1, Charset.forName("ISO-8859-1"));
