@@ -15,6 +15,7 @@ public class Customer {
     private String city;
     private String country;
     private String postalCode;
+    private String shippingCost;
     private List<List> listOfAllArticles = new ArrayList<List>();
     private List<String> article;
 
@@ -22,9 +23,8 @@ public class Customer {
     public Customer(String data){
         this.data=data;
         distributeData();
-
         addArticleFromRawData();
-        System.out.println(toString());
+      //  System.out.println(listOfAllArticles.get(0).get(7));
     }
 
 
@@ -44,13 +44,14 @@ public class Customer {
     }
 
     public void addArticleFromRawData(){
+     //   System.out.println(data);
         String[] positionsOfRawData = data.split("\t");
         article= new ArrayList<String>();
         //List Article: Stückzahl, Artikelbezeichnung, Währung, Preis, Preis_Mwst, Versand, Versand_Mwst, Rabatte ,
         article.add(positionsOfRawData[Defines.Article.STÜCKZAHL]);
         article.add(positionsOfRawData[Defines.Article.ARTIKLEBEZEICHNUNG]);
         article.add(positionsOfRawData[Defines.Article.WÄHRUNG]);
-        article.add(positionsOfRawData[Defines.Article.PREIS]);
+        article.add(positionsOfRawData[Defines.Article.PREIS_OHNE_RABATTE]);
         article.add(positionsOfRawData[Defines.Article.PREIS_MWST]);
         article.add(positionsOfRawData[Defines.Article.VERSANDKOSTEN]);
         article.add(positionsOfRawData[Defines.Article.VERSANDKOSTEN_MWST]);
@@ -64,7 +65,13 @@ public class Customer {
     }
 
 
+    public String getShippingCost() {
+        return shippingCost;
+    }
 
+    public void setShippingCost(String shippingCost) {
+        this.shippingCost = shippingCost;
+    }
 
     public String getBestelldatum() {
         return bestelldatum;
@@ -120,6 +127,25 @@ public class Customer {
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
+    public String getData() {
+        return data;
+    }
+    public void setData(String data) {
+        this.data = data;
+    }
+    public List<List> getListOfAllArticles() {
+        return listOfAllArticles;
+    }
+    public void setListOfAllArticles(List<List> listOfAllArticles) {
+        this.listOfAllArticles = listOfAllArticles;
+    }
+    public List<String> getArticle() {
+        return article;
+    }
+    public void setArticle(List<String> article) {
+        this.article = article;
+    }
+
 
     @Override
     public String toString() {

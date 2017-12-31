@@ -19,11 +19,11 @@ public class Defines{
         public static final int STÜCKZAHL = 9;
        public static final int ARTIKLEBEZEICHNUNG = 8;
         public static final int WÄHRUNG = 10;
-        public static final int PREIS = 11;
-        public static final int PREIS_MWST = 11;
-        public static final int VERSANDKOSTEN= 11;
-        public static final int VERSANDKOSTEN_MWST= 11;
-        public static final int RABATTE= 11;
+        public static final int PREIS_OHNE_RABATTE = 11;
+        public static final int PREIS_MWST = 12;
+        public static final int VERSANDKOSTEN= 13;
+        public static final int VERSANDKOSTEN_MWST= 14;
+        public static final int RABATTE= 25;
 
         public static final int SIZE_OF_ARTICLE_LIST = 7;
     }

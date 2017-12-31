@@ -6,17 +6,27 @@ import java.util.List;
  */
 public class Main {
 
+    public static void main(String[] args) throws IOException{
+        Main m = new Main();
+        m.start();
+    }
 
-
-    public static void main(String[] args) throws IOException {
-        System.out.println("Starting...");
-         List<String> listOfCustomers;
-        String pathToFile = "C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\8834115460017525.txt";
-        System.out.println("File selected.");
+    public void start() throws IOException {
+        String pathToFile = "C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\FINAL.txt";
         ReadFile rf = new ReadFile(pathToFile);
-        listOfCustomers = rf.getRawDataOfCustomers();
-        System.out.println("File Reading completed.");
-        CreateListOfCustomers createListOfCustomers = new CreateListOfCustomers(listOfCustomers);
+        List<String> listOfRawCustomers = rf.getRawDataOfCustomers();
+
+
+
+        CreateListOfCustomers createListOfCustomers = new CreateListOfCustomers(listOfRawCustomers);
+
+        List<Customer> listOfCustomers = createListOfCustomers.getListOfCustomers();
+
+        for(int i = 0; i<listOfCustomers.size(); i++){
+            String cost = CalculateValues.calculateShippingCost(listOfCustomers.get(i));
+            listOfCustomers.get(i).setShippingCost(cost);
+
+        }
 
     }
 }

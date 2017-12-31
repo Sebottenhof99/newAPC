@@ -57,4 +57,22 @@ public class CreateListOfCustomers {
         }
 
     }
+
+
+
+    public List<String> getRawCustomerList() {
+        return rawCustomerList;
+    }
+
+    public void setRawCustomerList(List<String> rawCustomerList) {
+        this.rawCustomerList = rawCustomerList;
+    }
+
+    public List<Customer> getListOfCustomers() {
+        return listOfCustomers;
+    }
+
+    public void setListOfCustomers(List<Customer> listOfCustomers) {
+        this.listOfCustomers = listOfCustomers;
+    }
 }
