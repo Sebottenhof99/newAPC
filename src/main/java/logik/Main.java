@@ -1,3 +1,5 @@
+package logik;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -6,12 +8,12 @@ import java.util.List;
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws Exception {
         Main m = new Main();
         m.start();
     }
 
-    public void start() throws IOException {
+    public void start() throws Exception {
         String pathToFile = "C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\1111.txt";
         ReadFile rf = new ReadFile(pathToFile);
         List<String> listOfRawCustomers = rf.getRawDataOfCustomers();
@@ -29,7 +31,15 @@ public class Main {
             listOfCustomers.get(i).setShippingCostNetto(CalculateValues.calculateNettoPrice(listOfCustomers.get(i).getShippingCost()));
             //System.out.println(listOfCustomers.get(i).getShippingCostNetto());
             System.out.println(listOfCustomers.get(i).getBestellnummer()+ " "+ listOfCustomers.get(i).getBestelldatum() +" "+ listOfCustomers.get(i).getPrice() +" "+ listOfCustomers.get(i).getShippingCost());
+            System.out.println(listOfCustomers.get(i).getListOfAllArticles().get(0).getARTIKLEBEZEICHNUNG());
         }
+
+        CreatePdf p = new CreatePdf("C:\\Users\\Antoshka\\Desktop\\Ama_Rechnungen\\config_invoice.txt");
+        for (Customer customer :listOfCustomers) {
+            p.manipulatePdf(customer);
+
+        }
+
 
 
 

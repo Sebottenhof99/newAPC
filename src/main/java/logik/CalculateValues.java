@@ -1,3 +1,5 @@
+package logik;
+
 import java.text.DecimalFormat;
 import java.util.List;
 

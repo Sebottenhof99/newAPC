@@ -1,3 +1,4 @@
+package logik;
 
 /**
  * Created by fisch on 29.11.2017.
@@ -25,7 +26,7 @@ public class Defines{
         public static final int VERSANDKOSTEN_MWST= 14;
         public static final int RABATTE= 25;
 
-        public static final int SIZE_OF_ARTICLE_LIST = 7;
+        public static final int SIZE_OF_ARTICLE_LIST = 6;
     }
 
 }

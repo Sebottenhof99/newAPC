@@ -1,3 +1,5 @@
+package logik;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,6 +8,8 @@ import java.util.List;
  */
 public class Customer {
     private String data;
+    private String savedFileName;
+
 
     private String bestelldatum;
     private String bestellnummer;
@@ -140,25 +144,12 @@ public class Customer {
     public void setListOfAllArticles(List<Article> listOfAllArticles) {
         this.listOfAllArticles = listOfAllArticles;
     }
-
-
-
-
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "data='" + data + '\'' +
-                ", bestelldatum='" + bestelldatum + '\'' +
-                ", bestellnummer='" + bestellnummer + '\'' +
-                ", name='" + name + '\'' +
-                ", mail='" + mail + '\'' +
-                ", adress1='" + adress1 + '\'' +
-                ", adress2='" + adress2 + '\'' +
-                ", city='" + city + '\'' +
-                ", country='" + country + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", listOfAllArticles=" + listOfAllArticles +
-                '}';
+    public String getSavedFileName() {
+        return savedFileName;
     }
+    public void setSavedFileName(String savedFileName) {
+        this.savedFileName = savedFileName;
+    }
+
+
 }
