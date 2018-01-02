@@ -44,7 +44,7 @@ public class Article {
         list.add(STÜCKZAHL);
         list.add(ARTIKLEBEZEICHNUNG);
         list.add(WÄHRUNG);
-
+//...
         return list;
     }
 

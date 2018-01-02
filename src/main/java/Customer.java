@@ -29,6 +29,9 @@ public class Customer {
 
     }
 
+
+
+
     public String getPrice(){
         return CalculateValues.calculateWholePrice(this);
     }
@@ -72,7 +75,7 @@ public class Customer {
         this.shippingCost = shippingCost;
     }
     public String getBestelldatum() {
-        return bestelldatum;
+        return CalculateValues.splitBestelldatum(this.bestelldatum);
     }
     public void setBestelldatum(String bestelldatum) {
         this.bestelldatum = bestelldatum;

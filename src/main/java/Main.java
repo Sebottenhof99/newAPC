@@ -12,7 +12,7 @@ public class Main {
     }
 
     public void start() throws IOException {
-        String pathToFile = "C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\FINAL.txt";
+        String pathToFile = "C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\1111.txt";
         ReadFile rf = new ReadFile(pathToFile);
         List<String> listOfRawCustomers = rf.getRawDataOfCustomers();
 
@@ -28,7 +28,7 @@ public class Main {
         for(int i = 0; i<listOfCustomers.size(); i++){
             listOfCustomers.get(i).setShippingCostNetto(CalculateValues.calculateNettoPrice(listOfCustomers.get(i).getShippingCost()));
             //System.out.println(listOfCustomers.get(i).getShippingCostNetto());
-            System.out.println(listOfCustomers.get(i).getPrice() +" "+ listOfCustomers.get(i).getShippingCost());
+            System.out.println(listOfCustomers.get(i).getBestellnummer()+ " "+ listOfCustomers.get(i).getBestelldatum() +" "+ listOfCustomers.get(i).getPrice() +" "+ listOfCustomers.get(i).getShippingCost());
         }
 
 
