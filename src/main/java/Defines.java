@@ -17,7 +17,7 @@ public class Defines{
     }
     public class Article {
         public static final int STÜCKZAHL = 9;
-       public static final int ARTIKLEBEZEICHNUNG = 8;
+        public static final int ARTIKLEBEZEICHNUNG = 8;
         public static final int WÄHRUNG = 10;
         public static final int PREIS_OHNE_RABATTE = 11;
         public static final int PREIS_MWST = 12;

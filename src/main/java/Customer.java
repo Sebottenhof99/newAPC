@@ -6,6 +6,7 @@ import java.util.List;
  */
 public class Customer {
     private String data;
+
     private String bestelldatum;
     private String bestellnummer;
     private String name;
@@ -16,18 +17,21 @@ public class Customer {
     private String country;
     private String postalCode;
     private String shippingCost;
-    private List<List> listOfAllArticles = new ArrayList<List>();
-    private List<String> article;
+    private String Price;
 
+    private String shippingCostNetto;
+    private List<Article> listOfAllArticles = new ArrayList<Article>();
 
     public Customer(String data){
         this.data=data;
         distributeData();
         addArticleFromRawData();
-      //  System.out.println(listOfAllArticles.get(0).get(7));
+
     }
 
-
+    public String getPrice(){
+        return CalculateValues.calculateWholePrice(this);
+    }
 
     public void distributeData(){
         String[] values = data.split("\t");
@@ -41,23 +45,13 @@ public class Customer {
         postalCode=values[Defines.Customer.PLZ];
         bestelldatum=values[Defines.Customer.BESTELLDATUM];
 
+
     }
 
-    public void addArticleFromRawData(){
-     //   System.out.println(data);
-        String[] positionsOfRawData = data.split("\t");
-        article= new ArrayList<String>();
-        //List Article: Stückzahl, Artikelbezeichnung, Währung, Preis, Preis_Mwst, Versand, Versand_Mwst, Rabatte ,
-        article.add(positionsOfRawData[Defines.Article.STÜCKZAHL]);
-        article.add(positionsOfRawData[Defines.Article.ARTIKLEBEZEICHNUNG]);
-        article.add(positionsOfRawData[Defines.Article.WÄHRUNG]);
-        article.add(positionsOfRawData[Defines.Article.PREIS_OHNE_RABATTE]);
-        article.add(positionsOfRawData[Defines.Article.PREIS_MWST]);
-        article.add(positionsOfRawData[Defines.Article.VERSANDKOSTEN]);
-        article.add(positionsOfRawData[Defines.Article.VERSANDKOSTEN_MWST]);
-        article.add(positionsOfRawData[Defines.Article.RABATTE]);
-        listOfAllArticles.add(article);
-    }
+   public void addArticleFromRawData(){
+       Article a = new Article(data);
+       listOfAllArticles.add(a);
+   }
 
     public void addOneMoreArticle(String data){
         this.data=data;
@@ -65,14 +59,18 @@ public class Customer {
     }
 
 
+    public String getShippingCostNetto() {
+        return shippingCostNetto;
+    }
+    public void setShippingCostNetto(String shippingCostNetto) {
+        this.shippingCostNetto = shippingCostNetto;
+    }
     public String getShippingCost() {
         return shippingCost;
     }
-
     public void setShippingCost(String shippingCost) {
         this.shippingCost = shippingCost;
     }
-
     public String getBestelldatum() {
         return bestelldatum;
     }
@@ -133,18 +131,15 @@ public class Customer {
     public void setData(String data) {
         this.data = data;
     }
-    public List<List> getListOfAllArticles() {
+    public List<Article> getListOfAllArticles() {
         return listOfAllArticles;
     }
-    public void setListOfAllArticles(List<List> listOfAllArticles) {
+    public void setListOfAllArticles(List<Article> listOfAllArticles) {
         this.listOfAllArticles = listOfAllArticles;
     }
-    public List<String> getArticle() {
-        return article;
-    }
-    public void setArticle(List<String> article) {
-        this.article = article;
-    }
+
+
+
 
 
     @Override
@@ -161,7 +156,6 @@ public class Customer {
                 ", country='" + country + '\'' +
                 ", postalCode='" + postalCode + '\'' +
                 ", listOfAllArticles=" + listOfAllArticles +
-                ", article=" + article +
                 '}';
     }
 }

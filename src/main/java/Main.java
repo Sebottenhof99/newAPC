@@ -19,14 +19,19 @@ public class Main {
 
 
         CreateListOfCustomers createListOfCustomers = new CreateListOfCustomers(listOfRawCustomers);
-
         List<Customer> listOfCustomers = createListOfCustomers.getListOfCustomers();
 
-        for(int i = 0; i<listOfCustomers.size(); i++){
-            String cost = CalculateValues.calculateShippingCost(listOfCustomers.get(i));
-            listOfCustomers.get(i).setShippingCost(cost);
 
+        for(int i = 0; i<listOfCustomers.size(); i++){
+            listOfCustomers.get(i).setShippingCost(CalculateValues.calculateShippingCost(listOfCustomers.get(i)));
         }
+        for(int i = 0; i<listOfCustomers.size(); i++){
+            listOfCustomers.get(i).setShippingCostNetto(CalculateValues.calculateNettoPrice(listOfCustomers.get(i).getShippingCost()));
+            //System.out.println(listOfCustomers.get(i).getShippingCostNetto());
+            System.out.println(listOfCustomers.get(i).getPrice() +" "+ listOfCustomers.get(i).getShippingCost());
+        }
+
+
 
     }
 }
