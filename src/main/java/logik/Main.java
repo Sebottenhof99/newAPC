@@ -24,11 +24,9 @@ public class Main {
         List<Customer> listOfCustomers = createListOfCustomers.getListOfCustomers();
 
 
+
         for(int i = 0; i<listOfCustomers.size(); i++){
-            listOfCustomers.get(i).setShippingCost(CalculateValues.calculateShippingCost(listOfCustomers.get(i)));
-        }
-        for(int i = 0; i<listOfCustomers.size(); i++){
-            listOfCustomers.get(i).setShippingCostNetto(CalculateValues.calculateNettoPrice(listOfCustomers.get(i).getShippingCost()));
+           // listOfCustomers.get(i).setShippingCostNetto(CalculateValues.calculateNettoPrice(listOfCustomers.get(i).getShippingCost()));
             //System.out.println(listOfCustomers.get(i).getShippingCostNetto());
             System.out.println(listOfCustomers.get(i).getBestellnummer()+ " "+ listOfCustomers.get(i).getBestelldatum() +" "+ listOfCustomers.get(i).getPrice() +" "+ listOfCustomers.get(i).getShippingCost());
             System.out.println(listOfCustomers.get(i).getListOfAllArticles().get(0).getARTIKLEBEZEICHNUNG());

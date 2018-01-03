@@ -12,7 +12,6 @@ public class CalculateValues {
     public static String calculateShippingCost(Customer c){
         double sum=0;
         List<Article> list = c.getListOfAllArticles();
-
         for(int i = 0; i<list.size(); i++){
             String s = list.get(i).getVERSANDKOSTEN();
             s=s.replace(",",".");
@@ -58,6 +57,28 @@ public class CalculateValues {
 
     }
 
+
+    public static String calculateShippingCostNetto(Customer c){
+        double sum=0;
+        List<Article> list = c.getListOfAllArticles();
+
+        for(int i = 0; i<list.size(); i++){
+            String s = list.get(i).getVERSANDKOSTEN_MWST().replace(",",".");
+            try {
+                double currentValue = Double.parseDouble(s);
+                sum+=currentValue;
+            }catch (NumberFormatException e){
+                sum=0;
+            }
+        }
+
+        sum = Math.round((sum)*100.0)/100.0;
+        DecimalFormat df =   new DecimalFormat( ",##0.00" );
+        return df.format(sum);
+    }
+
+
+
     public static String calculateNettoPrice(String bruttoValue){
         try {
             bruttoValue = bruttoValue.replace(",", ".");
@@ -72,6 +93,7 @@ public class CalculateValues {
     }
 
     public static String calculateWholePrice(Customer c) {
+
         try {
             double price = 0;
             for (int i = 0; i < c.getListOfAllArticles().size(); i++) {
@@ -80,12 +102,44 @@ public class CalculateValues {
                 double d = Double.parseDouble(priceS);
                 price += d;
             }
+            double versand = Double.parseDouble(c.getShippingCost().replace(",","."));
+            price+=versand;
+            System.out.println(price);
             DecimalFormat df = new DecimalFormat(",##0.00");
             return df.format(price);
         }catch (NumberFormatException e){
             return "0,00";
         }
     }
+
+
+    public static String calculateMwsTSum(Customer customer){
+        String price = customer.getPrice();
+        String netto = customer.getNettoPrice();
+        price = price.replace(",",".");
+        netto = netto.replace(",",".");
+        double priceD = Double.parseDouble(price);
+        double nettoD = Double.parseDouble(netto);
+        double result = priceD - nettoD;
+        result = Math.round((result)*100.0)/100.0;
+        DecimalFormat df =   new DecimalFormat( ",##0.00" );
+        return df.format(result);
+    }
+
+    public static String calculateMwsTShippingSum(Customer customer){
+        String price = customer.getShippingCost();
+        String netto = customer.getShippingCostNetto();
+        price = price.replace(",",".");
+        netto = netto.replace(",",".");
+        double priceD = Double.parseDouble(price);
+        double nettoD = Double.parseDouble(netto);
+        double result = priceD - nettoD;
+        result = Math.round((result)*100.0)/100.0;
+        DecimalFormat df =   new DecimalFormat( ",##0.00" );
+        return df.format(result);
+    }
+
+
 
     public static String splitBestelldatum(String rawDate){
         String date ="";

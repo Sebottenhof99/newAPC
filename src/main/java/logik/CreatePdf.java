@@ -46,6 +46,7 @@ import java.util.Properties;
 
 
 class CreatePdf {
+    Customer customer;
     String pathOfPropsFile;
     public CreatePdf(String pathOfPropsFile){
         this.pathOfPropsFile=pathOfPropsFile;
@@ -54,6 +55,7 @@ class CreatePdf {
     public  final String LOGO = this.getClass().getClassLoader().getResource("handy-lux.jpg").toExternalForm().replace("file:\\","").trim();
 
     protected void manipulatePdf(Customer customer) throws Exception {
+        this.customer=customer;
         LocalTime localTime = LocalTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH-mm-ss-ms");
 
@@ -107,7 +109,7 @@ class CreatePdf {
                 customer.getAdress1() + "\n" +
                 customer.getAdress2() + "\n" +
                 customer.getPostalCode() + " " + customer.getCity() + "\n" +
-                customer.getCountry() + "\n" +
+                customer.getCountry() + "\n\n" +
                 customer.getMail());
 
         Cell käufer = new Cell().add(dataOfCustomer).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT);
@@ -130,17 +132,14 @@ class CreatePdf {
         Table table = new Table(2)
                 .setTextAlignment(TextAlignment.LEFT)
                 .setHorizontalAlignment(HorizontalAlignment.RIGHT)
-                .setWidthPercent(40)
+                .setWidthPercent(50)
                 .setFontSize(10);
 
-   Cell d=     new Cell(1,10).add("Datum");
-        table.addCell( d).setFontColor(Color.DARK_GRAY).setBold();
+        table.addCell(new Cell().add("Datum")).setFontColor(Color.DARK_GRAY).setBold();
+        table.addCell(new Cell().add("Bestellnummer")).setFontColor(Color.DARK_GRAY).setBold();;
+        table.addCell(new Cell().add(customer.getBestelldatum()));
+        table.addCell(new Cell().add(customer.getBestellnummer()));
 
-Cell dd=new Cell(1,30).add("Verkaufsprotokollnr.");
-        table.addCell(dd).setFontColor(Color.DARK_GRAY).setBold();;
-table.addCell(new Cell(1,10).add(customer.getBestelldatum()));
-
-        table.addCell(new Cell(1,30).add(customer.getBestellnummer()));
         doc.add(table);
         doc.add(new Paragraph());
 
@@ -159,7 +158,7 @@ table.addCell(new Cell(1,10).add(customer.getBestelldatum()));
         table2.addCell(netto);
         Cell MwSt = new Cell(1, 5).add("MwSt.").setFontColor(Color.DARK_GRAY).setBold();
         table2.addCell(MwSt);
-        Cell preis = new Cell(1, 15).add("Preis").setFontColor(Color.DARK_GRAY).setBold();
+        Cell preis = new Cell(1, 15).add("MwSt EUR").setFontColor(Color.DARK_GRAY).setBold();
         table2.addCell(preis);
         Cell zwischensumme = new Cell(1, 15).add("Zwischensumme").setFontColor(Color.DARK_GRAY).setBold();
         table2.addCell(zwischensumme);
@@ -167,8 +166,8 @@ table.addCell(new Cell(1,10).add(customer.getBestelldatum()));
         addArticlesToTable(table2, customer.getListOfAllArticles());
         addVersandKosten(table2,customer);
         doc.add(table2);
-        Paragraph p4 = new Paragraph("Gesamtnettobetrag EUR "+CalculateValues.calculateNettoPrice(customer.getPrice())+"\n"+
-                "Mehrwertsteuerbetrag EUR 0,00"+"\n")
+        Paragraph p4 = new Paragraph("Gesamtnettobetrag EUR "+customer.getNettoPrice()+"\n"+
+                "Mehrwertsteuerbetrag EUR "+ customer.getMwsTSum()+"\n")
               //  "Rabatte (-) oder weitere Kosten (+):  EUR " + customer.getRabatt()+"\n")
                 .setTextAlignment(TextAlignment.RIGHT).setFontSize(10)
                 .setFixedLeading(14);
@@ -232,13 +231,13 @@ table.addCell(new Cell(1,10).add(customer.getBestelldatum()));
                                 break;
                             case 1:table.addCell(new Cell(1,50).add(new Paragraph((String) list.get(i).getARTIKLEBEZEICHNUNG()).setFixedLeading(10)));
                                 break;
-                            case 2:table.addCell(new Cell(1,10).add((String) list.get(i).getPREIS_MWST()));
+                            case 2:table.addCell(new Cell(1,10).add((String) list.get(i).getPREIS_OHNE_MWST()));
                                 break;
-                            case 3:table.addCell(new Cell(1,5).add((String) list.get(i).getPREIS_MIT_RABATTE()));
+                             case 3:table.addCell(new Cell(1,5).add((String) "19%"));
                                 break;
-                            case 4:table.addCell(new Cell(1,15).add((String) "19%"));
+                            case 4:table.addCell(new Cell(1,15).add((String) list.get(i).getPREIS_MWST()));
                                 break;
-                            case 5:table.addCell(new Cell(1,15).add((String) list.get(i).getPREIS_MIT_RABATTE()));
+                            case 5:table.addCell(new Cell(1,15).add((String)list.get(i).getPREIS_MIT_RABATTE() ));
                                 break;
 
                         }
@@ -254,13 +253,13 @@ table.addCell(new Cell(1,10).add(customer.getBestelldatum()));
 
         table.addCell(new Cell(1,5).add("1"));
         table.addCell(new Cell(1,50).add("Versand und Verpackung"));
-        table.addCell(new Cell(1,10).add(customer.getShippingCost()));
+        table.addCell(new Cell(1,10).add(customer.getShippingCostNetto()));
         if (customer.getShippingCostNetto().equals("")){
             table.addCell(new Cell(1,5).add(("")));
         }else{
             table.addCell(new Cell(1,5).add(("19%")));
         }
-        table.addCell(new Cell(1,15).add(customer.getShippingCost()));
+        table.addCell(new Cell(1,15).add(customer.getShippingCostMwSt()));
         table.addCell(new Cell(1,15).add(customer.getShippingCost()));
     }
 
