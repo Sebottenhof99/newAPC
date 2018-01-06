@@ -14,7 +14,7 @@ public class Main {
     }
 
     public void start() throws Exception {
-        String pathToFile = "C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\1111.txt";
+        String pathToFile = "C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\4444.txt";
         ReadFile rf = new ReadFile(pathToFile);
         List<String> listOfRawCustomers = rf.getRawDataOfCustomers();
 

@@ -36,7 +36,8 @@ public class Customer {
     public String getPrice(){
         return CalculateValues.calculateWholePrice(this);
     }
-    public String getNettoPrice(){ return CalculateValues.calculateNettoPrice(this.getPrice());}
+    //public String getNettoPrice(){ return CalculateValues.calculateNettoPrice(this.getPrice());}
+    public String getNettoPrice(){ return CalculateValues.calculateWholeNettoPrice(this);}
     public String getMwsTSum(){
         return CalculateValues.calculateMwsTSum(this);
     }

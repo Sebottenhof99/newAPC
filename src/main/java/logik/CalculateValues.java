@@ -139,7 +139,20 @@ public class CalculateValues {
         return df.format(result);
     }
 
+    public static String calculateWholeNettoPrice(Customer c){
+       double sum = 0;
 
+       sum+= Double.parseDouble(c.getShippingCostNetto().replace(",","."));
+       for(int i = 0; i<c.getListOfAllArticles().size(); i++){
+           String s = c.getListOfAllArticles().get(i).getPREIS_OHNE_MWST();
+           sum+=Double.parseDouble(s.replace(",","."));
+       }
+        sum= Math.round((sum)*100.0)/100.0;
+        DecimalFormat df =   new DecimalFormat( ",##0.00" );
+        return df.format(sum);
+
+
+    }
 
     public static String splitBestelldatum(String rawDate){
         String date ="";
