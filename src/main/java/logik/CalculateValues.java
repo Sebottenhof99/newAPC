@@ -1,5 +1,7 @@
 package logik;
 
+import javafx.beans.value.ObservableNumberValue;
+
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -9,23 +11,27 @@ import java.util.List;
 public class CalculateValues {
 
 
-    public static String calculateShippingCost(Customer c){
-        double sum=0;
-        List<Article> list = c.getListOfAllArticles();
-        for(int i = 0; i<list.size(); i++){
-            String s = list.get(i).getVERSANDKOSTEN();
-            s=s.replace(",",".");
-            try {
-                double currentValue = Double.parseDouble(s);
-                sum+=currentValue;
-            }catch (NumberFormatException e){
-                sum=0;
+    public static String calculateShippingCost(Customer c) {
+        try {
+            double sum = 0;
+            List<Article> list = c.getListOfAllArticles();
+            for (int i = 0; i < list.size(); i++) {
+                String s = list.get(i).getVERSANDKOSTEN();
+                s = s.replace(",", ".");
+                try {
+                    double currentValue = Double.parseDouble(s);
+                    sum += currentValue;
+                } catch (NumberFormatException e) {
+                    sum = 0;
+                }
             }
-        }
 
-        sum = Math.round((sum)*100.0)/100.0;
-        DecimalFormat df =   new DecimalFormat( ",##0.00" );
-        return df.format(sum);
+            sum = Math.round((sum) * 100.0) / 100.0;
+            DecimalFormat df = new DecimalFormat(",##0.00");
+            return df.format(sum);
+        }catch (NumberFormatException e){
+            return "0,00";
+        }
     }
 
     public static String calculateItemPrice(String priceWithoutDiscount, String discount){
@@ -59,22 +65,27 @@ public class CalculateValues {
 
 
     public static String calculateShippingCostNetto(Customer c){
-        double sum=0;
-        List<Article> list = c.getListOfAllArticles();
+        try {
 
-        for(int i = 0; i<list.size(); i++){
-            String s = list.get(i).getVERSANDKOSTEN_MWST().replace(",",".");
-            try {
-                double currentValue = Double.parseDouble(s);
-                sum+=currentValue;
-            }catch (NumberFormatException e){
-                sum=0;
+            double sum = 0;
+            List<Article> list = c.getListOfAllArticles();
+
+            for (int i = 0; i < list.size(); i++) {
+                String s = list.get(i).getVERSANDKOSTEN_MWST().replace(",", ".");
+                try {
+                    double currentValue = Double.parseDouble(s);
+                    sum += currentValue;
+                } catch (NumberFormatException e) {
+                    sum = 0;
+                }
             }
-        }
 
-        sum = Math.round((sum)*100.0)/100.0;
-        DecimalFormat df =   new DecimalFormat( ",##0.00" );
-        return df.format(sum);
+            sum = Math.round((sum) * 100.0) / 100.0;
+            DecimalFormat df = new DecimalFormat(",##0.00");
+            return df.format(sum);
+        }catch (NumberFormatException e){
+            return "0,00";
+        }
     }
 
 
@@ -114,45 +125,50 @@ public class CalculateValues {
 
 
     public static String calculateMwsTSum(Customer customer){
-        String price = customer.getPrice();
-        String netto = customer.getNettoPrice();
-        price = price.replace(",",".");
-        netto = netto.replace(",",".");
-        double priceD = Double.parseDouble(price);
-        double nettoD = Double.parseDouble(netto);
-        double result = priceD - nettoD;
-        result = Math.round((result)*100.0)/100.0;
-        DecimalFormat df =   new DecimalFormat( ",##0.00" );
-        return df.format(result);
+        double result = Double.parseDouble(customer.getPrice().replace(",",".")) - Double.parseDouble(customer.getNettoPrice().replace(",","."));
+        try {
+            result = Math.round((result) * 100.0) / 100.0;
+            return new DecimalFormat(",##0.00").format(result);
+        }catch (NumberFormatException e){
+            return "0,00";
+        }
+
     }
 
     public static String calculateMwsTShippingSum(Customer customer){
-        String price = customer.getShippingCost();
-        String netto = customer.getShippingCostNetto();
-        price = price.replace(",",".");
-        netto = netto.replace(",",".");
-        double priceD = Double.parseDouble(price);
-        double nettoD = Double.parseDouble(netto);
-        double result = priceD - nettoD;
-        result = Math.round((result)*100.0)/100.0;
-        DecimalFormat df =   new DecimalFormat( ",##0.00" );
-        return df.format(result);
+       try {
+           String price = customer.getShippingCost();
+           String netto = customer.getShippingCostNetto();
+           price = price.replace(",", ".");
+           netto = netto.replace(",", ".");
+           double priceD = Double.parseDouble(price);
+           double nettoD = Double.parseDouble(netto);
+           double result = priceD - nettoD;
+           result = Math.round((result) * 100.0) / 100.0;
+           DecimalFormat df = new DecimalFormat(",##0.00");
+           return df.format(result);
+       }catch (NumberFormatException e){
+           return "0,00";
+       }
     }
 
     public static String calculateWholeNettoPrice(Customer c){
        double sum = 0;
+        try {
+            sum += Double.parseDouble(c.getShippingCostNetto().replace(",", "."));
+            for (int i = 0; i < c.getListOfAllArticles().size(); i++) {
+                String s = c.getListOfAllArticles().get(i).getPREIS_OHNE_MWST();
+                sum += Double.parseDouble(s.replace(",", "."));
+            }
+            sum = Math.round((sum) * 100.0) / 100.0;
+            DecimalFormat df = new DecimalFormat(",##0.00");
+            return df.format(sum);
+        }catch (NumberFormatException e){
+            return "0,00";
+        }
 
-       sum+= Double.parseDouble(c.getShippingCostNetto().replace(",","."));
-       for(int i = 0; i<c.getListOfAllArticles().size(); i++){
-           String s = c.getListOfAllArticles().get(i).getPREIS_OHNE_MWST();
-           sum+=Double.parseDouble(s.replace(",","."));
-       }
-        sum= Math.round((sum)*100.0)/100.0;
-        DecimalFormat df =   new DecimalFormat( ",##0.00" );
-        return df.format(sum);
 
-
-    }
+        }
 
     public static String splitBestelldatum(String rawDate){
         String date ="";
