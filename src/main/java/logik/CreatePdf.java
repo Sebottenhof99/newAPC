@@ -10,8 +10,10 @@
  import java.io.FileOutputStream;
  import java.io.IOException;
  import java.text.SimpleDateFormat;
+ import java.time.LocalDate;
  import java.time.LocalTime;
  import java.time.format.DateTimeFormatter;
+ import java.time.format.FormatStyle;
  import java.util.Date;
  import java.util.List;
  import java.util.Properties;
@@ -193,10 +195,8 @@ class CreatePdf {
 
     public String getInvoiceID() throws IOException {
         String RECHNUNGSNUMMER="";
-        Date date = new Date();
-        SimpleDateFormat dateFormatForInvoiceNumber = new SimpleDateFormat("yMd");
-        String datumFuerRechnungsnummer = dateFormatForInvoiceNumber.format(date);
-        RECHNUNGSNUMMER+=datumFuerRechnungsnummer;
+
+        RECHNUNGSNUMMER+= LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)).replace(".","") + "A";
         Properties p = new Properties();
         //File f = new File("C:/Users/"+System.getProperty("user.name")+"/Desktop/Rechnungen");
         File f = new File(pathOfPropsFile+"props.txt");
