@@ -18,7 +18,8 @@ import java.util.List;
 public class Main extends Application{
     private boolean permissionToCreatePDF = false;
     private boolean permissionToSendEmails = false;
-    private String pathToFile=null;
+    private String pathToFile = null;
+    CreateListOfCustomers createListOfCustomers = null;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -77,29 +78,52 @@ public class Main extends Application{
             public void handle(ActionEvent event) {
                 if(permissionToCreatePDF){
                     try {
+
                         ReadFile rf = new ReadFile(pathToFile);
                         List<String> listOfRawCustomers = rf.getRawDataOfCustomers();
-                        CreateListOfCustomers createListOfCustomers = new CreateListOfCustomers(listOfRawCustomers);
+                         createListOfCustomers = new CreateListOfCustomers(listOfRawCustomers);
                         List<Customer> listOfCustomers = createListOfCustomers.getListOfCustomers();
-                        CreatePdf p = new CreatePdf("C:\\Users\\Antoshka\\Desktop\\Ama_Rechnungen\\config_invoice.txt");
+                        String pathOfProps = ProvideResults.createFolder();
                         for (Customer customer : listOfCustomers) {
-                            p.manipulatePdf(customer);
 
+                                        CreatePdf p = new CreatePdf(pathOfProps);
+
+                                        p.manipulatePdf(customer);
                         }
                         mailmassager.setText("Status: PDF Dateien wurden erfolgreich erstellt");
-
+                        permissionToSendEmails = true;
+                        ProvideMails.counter = 0;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-        }
-                              });
 
-        createPDF.setOnAction(new EventHandler<ActionEvent>() {
+        }});
+
+        sendEmails.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
 
-                //FIRE YOUR MAIL CLASS
+                if (permissionToSendEmails) {
+                    permissionToSendEmails = false;
+                    for (Customer customer : createListOfCustomers.getListOfCustomers()) {
+                        mailThread(customer);
+
+                    }
+                    try {
+                        while ( ProvideMails.counter!=createListOfCustomers.getListOfCustomers().size() ){
+                            System.out.println(ProvideMails.counter);
+
+                        }
+                        ProvideResults.moveAllFilesToTargetFolder();
+                        mailmassager.setText("Status: " + ProvideMails.counter + " Emails wurden erfolgreich versendet!");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    mailmassager.setText("FEHLER: Emaisl Bereits versendet /  Keine PDFs vorher erstellt.");
+                }
 
             }
         });
@@ -109,5 +133,17 @@ public class Main extends Application{
             primaryStage.setScene(scene);
             primaryStage.show();
         }
+
+    public void mailThread(Customer customer){
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                new ProvideMails().sendMail(customer);
+
+            }};
+
+        Thread thread = new Thread(task);
+        thread.start();
+    }
    // }
 }

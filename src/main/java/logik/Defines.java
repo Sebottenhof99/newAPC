@@ -28,5 +28,9 @@ public class Defines{
 
         public static final int SIZE_OF_ARTICLE_LIST = 6;
     }
+    public class Mails{
+        public static final int HOSTINGEN = 0;
+        public static final int GMAIL = 1;
+    }
 
 }
