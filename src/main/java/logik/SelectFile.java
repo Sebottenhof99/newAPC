@@ -11,8 +11,7 @@ import java.io.File;
 /**
  * Created by Antoshka on 07.01.2018.
  */
-public class SelectFile// extends Application
- {
+public class SelectFile {
 
 
     public String getFile() {
