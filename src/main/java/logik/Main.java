@@ -3,10 +3,15 @@ package logik;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +28,24 @@ public class Main extends Application{
     //TEST ))))
     @Override
     public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("http://java-buddy.blogspot.com/");
+        Group root = new Group();
+        Scene scene = new Scene(root, 400, 180, Color.WHITE);
+
+        TabPane tabPane = new TabPane();
+        BorderPane mainPane = new BorderPane();
+
+        //Create Tabs
+        Tab tabA = new Tab();
+        tabA.setText("Amazon");
+        tabA.setClosable(false);
+        tabPane.setTabMinWidth(180);
+
+        Tab tabE = new Tab();
+        tabE.setText("Ebay");
+        tabE.setClosable(false);
+
+
         Label mailmassager;
         Button openFile, createPDF, sendEmails, exitButton;
         VBox vbox = new VBox();
@@ -47,7 +70,7 @@ public class Main extends Application{
         vbox.getChildren().add(sendEmails);
         vbox.getChildren().add(exitButton);
 
-        Scene scene = new Scene(vbox, 400, 150);
+        //Scene scene = new Scene(vbox, 400, 150);
         primaryStage.setTitle("Amazon PDF Creator v1.0.0");
         primaryStage.setOnCloseRequest(event -> System.exit(0));
 
@@ -130,8 +153,36 @@ public class Main extends Application{
 
         exitButton.setOnAction(event -> System.exit(0));
 
-            primaryStage.setScene(scene);
-            primaryStage.show();
+        Label statusEbay = new Label("Status:");
+
+        statusEbay.setPrefSize(400, 30);
+        Button ebay1 = new Button("Button 1");
+        ebay1.setPrefSize(400,30);
+        Button ebay2 = new Button("Button 1");
+        ebay2.setPrefSize(400,30);
+        Button ebay3 = new Button("Button 1");
+        ebay3.setPrefSize(400,30);
+        Button ebay4 = new Button("Button 1");
+        ebay4.setPrefSize(400,30);
+        VBox ebayBox = new VBox();
+        ebayBox.getChildren().add(statusEbay);
+        ebayBox.getChildren().add(ebay1);
+        ebayBox.getChildren().add(ebay2);
+        ebayBox.getChildren().add(ebay3);
+        ebayBox.getChildren().add(ebay4);
+
+
+        tabA.setContent(vbox);
+        tabPane.getTabs().add(tabA);
+
+        tabE.setContent(ebayBox);
+        tabPane.getTabs().add(tabE);
+
+        mainPane.setCenter(tabPane);
+
+        root.getChildren().add(mainPane);
+        primaryStage.setScene(scene);
+        primaryStage.show();
         }
 
     public void mailThread(Customer customer){
