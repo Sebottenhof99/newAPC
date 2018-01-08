@@ -72,7 +72,7 @@ public class ProvideMails  {
             message.setFrom(new InternetAddress(fromMail,mask));
 
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse( "fischbachadam92@gmail.com"));//customer.getMail()
+                    InternetAddress.parse( "anton.ponomarenko@gmx.de"));//customer.getMail()
             System.out.println(customer.getMail());
             message.setSubject("Ihre Rechnung zur Bestellung "+customer.getBestellnummer()+" von Handy Lux");
             Multipart multipart = new MimeMultipart();

@@ -20,7 +20,7 @@ public class Main extends Application{
     private boolean permissionToSendEmails = false;
     private String pathToFile = null;
     CreateListOfCustomers createListOfCustomers = null;
-
+    //TEST ))))
     @Override
     public void start(Stage primaryStage) throws Exception {
         Label mailmassager;
