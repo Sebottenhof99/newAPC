@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,10 +29,9 @@ public class Main extends Application{
     //TEST ))))
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("http://java-buddy.blogspot.com/");
         Group root = new Group();
-        Scene scene = new Scene(root, 400, 180, Color.WHITE);
-
+        Scene scene = new Scene(root, 400, 190, Color.WHITE);
+        primaryStage.getIcons().add(new Image("icon.png"));
         TabPane tabPane = new TabPane();
         BorderPane mainPane = new BorderPane();
 
@@ -170,7 +170,8 @@ public class Main extends Application{
         ebayBox.getChildren().add(ebay2);
         ebayBox.getChildren().add(ebay3);
         ebayBox.getChildren().add(ebay4);
-
+       tabPane.getStylesheets().add("test.css");
+      // tabPane.getStylesheets().add("test.css");
 
         tabA.setContent(vbox);
         tabPane.getTabs().add(tabA);

@@ -1,0 +1,24 @@
+.button, .tab {
+    -fx-font: 16px "Arial";
+ 
+  
+
+}
+	
+.button:hover {
+    -fx-background-color: #CAC9C9;
+	
+
+}
+
+.tab:hover{
+	-fx-background-color: #CAC9C9;
+}
+
+.tab:selected{
+	-fx-background-color: #C0C0C0;
+}
+
+.label{
+	-fx-font: 16px "Arial";
+}
