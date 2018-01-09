@@ -154,26 +154,26 @@ class CreatePdf {
 
         Cell stückZahl = new Cell(1, 5).add("Stückzahl").setFontColor(Color.DARK_GRAY).setBold();
         table2.addCell(stückZahl);
-        Cell artikelBezeichnung = new Cell(1, 50).add("Artikelbezeichnung").setFontColor(Color.DARK_GRAY).setBold();
+        Cell artikelBezeichnung = new Cell(1, 55).add("Artikelbezeichnung").setFontColor(Color.DARK_GRAY).setBold();
         table2.addCell(artikelBezeichnung);
-        Cell netto = new Cell(1, 10).add("Netto").setFontColor(Color.DARK_GRAY).setBold();
+        Cell netto = new Cell(1, 10).add("Netto "+ customer.getListOfAllArticles().get(0).getWÄHRUNG() ).setFontColor(Color.DARK_GRAY).setBold();
         table2.addCell(netto);
         Cell MwSt = new Cell(1, 5).add("MwSt.").setFontColor(Color.DARK_GRAY).setBold();
         table2.addCell(MwSt);
-        Cell preis = new Cell(1, 15).add("MwSt EUR").setFontColor(Color.DARK_GRAY).setBold();
+        Cell preis = new Cell(1, 10).add("MwSt "+customer.getListOfAllArticles().get(0).getWÄHRUNG()).setFontColor(Color.DARK_GRAY).setBold();
         table2.addCell(preis);
-        Cell zwischensumme = new Cell(1, 15).add("Zwischensumme").setFontColor(Color.DARK_GRAY).setBold();
+        Cell zwischensumme = new Cell(1, 15).add("Zwischensumme "+ customer.getListOfAllArticles().get(0).getWÄHRUNG()).setFontColor(Color.DARK_GRAY).setBold();
         table2.addCell(zwischensumme);
 
         addArticlesToTable(table2, customer.getListOfAllArticles());
         addVersandKosten(table2,customer);
         doc.add(table2);
-        Paragraph p4 = new Paragraph("Gesamtnettobetrag EUR "+customer.getNettoPrice()+"\n"+
-                "Mehrwertsteuerbetrag EUR "+ customer.getMwsTSum()+"\n")
+        Paragraph p4 = new Paragraph("Gesamtnettobetrag "+customer.getListOfAllArticles().get(0).getWÄHRUNG()+" "+customer.getNettoPrice()+"\n"+
+                "Mehrwertsteuerbetrag "+customer.getListOfAllArticles().get(0).getWÄHRUNG()+" "+ customer.getMwsTSum()+"\n")
               //  "Rabatte (-) oder weitere Kosten (+):  EUR " + customer.getRabatt()+"\n")
                 .setTextAlignment(TextAlignment.RIGHT).setFontSize(10)
                 .setFixedLeading(14);
-        Text gesBetrag = new Text("Gesamtbetrag inkl. MwSt. ").setBold();
+        Text gesBetrag = new Text("Gesamtbetrag inkl. MwSt. " +customer.getListOfAllArticles().get(0).getWÄHRUNG() + " ").setBold();
         Text summe = new Text(customer.getPrice());
         p4.add(gesBetrag);
         p4.add(summe);
@@ -229,13 +229,13 @@ class CreatePdf {
 
                             case 0:table.addCell(new Cell(1,5).add((String) list.get(i).getSTÜCKZAHL()));
                                 break;
-                            case 1:table.addCell(new Cell(1,50).add(new Paragraph((String) list.get(i).getARTIKLEBEZEICHNUNG()).setFixedLeading(10)));
+                            case 1:table.addCell(new Cell(1,55).add(new Paragraph((String) list.get(i).getARTIKLEBEZEICHNUNG()).setFixedLeading(10)));
                                 break;
                             case 2:table.addCell(new Cell(1,10).add((String) list.get(i).getPREIS_OHNE_MWST()));
                                 break;
                              case 3:table.addCell(new Cell(1,5).add((String) "19%"));
                                 break;
-                            case 4:table.addCell(new Cell(1,15).add((String) list.get(i).getPREIS_MWST()));
+                            case 4:table.addCell(new Cell(1,10).add((String) list.get(i).getPREIS_MWST()));
                                 break;
                             case 5:table.addCell(new Cell(1,15).add((String)list.get(i).getPREIS_MIT_RABATTE() ));
                                 break;
@@ -252,14 +252,14 @@ class CreatePdf {
     public void addVersandKosten(Table table, Customer customer){
 
         table.addCell(new Cell(1,5).add("1"));
-        table.addCell(new Cell(1,50).add("Versand und Verpackung"));
+        table.addCell(new Cell(1,55).add("Versand und Verpackung"));
         table.addCell(new Cell(1,10).add(customer.getShippingCostNetto()));
         if (customer.getShippingCostNetto().equals("")){
             table.addCell(new Cell(1,5).add(("")));
         }else{
             table.addCell(new Cell(1,5).add(("19%")));
         }
-        table.addCell(new Cell(1,15).add(customer.getShippingCostMwSt()));
+        table.addCell(new Cell(1,10).add(customer.getShippingCostMwSt()));
         table.addCell(new Cell(1,15).add(customer.getShippingCost()));
     }
 

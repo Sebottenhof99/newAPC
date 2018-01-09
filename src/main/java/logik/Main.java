@@ -3,6 +3,7 @@ package logik;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,13 +40,16 @@ public class Main extends Application{
         createPDF.setPrefSize(400, 30);
         sendEmails.setPrefSize(400, 30);
         exitButton.setPrefSize(400,30);
+        vbox.setAlignment(Pos.CENTER);
 
         vbox.getChildren().add(openFile);
         vbox.getChildren().add(createPDF);
         vbox.getChildren().add(sendEmails);
         vbox.getChildren().add(exitButton);
 
-        Scene scene = new Scene(vbox, 400, 150);
+        Scene scene = new Scene(vbox, 400, 175);
+
+
         primaryStage.setTitle("Amazon PDF Creator v1.0.0");
         primaryStage.setOnCloseRequest(event -> System.exit(0));
 
@@ -75,6 +79,7 @@ public class Main extends Application{
             @Override
             public void handle(ActionEvent event) {
                 if(permissionToCreatePDF){
+                    System.out.println("if");
                     try {
 
                         ReadFile rf = new ReadFile(pathToFile);
@@ -88,7 +93,7 @@ public class Main extends Application{
 
                                         p.manipulatePdf(customer);
                         }
-                        mailmassager.setText("Status: PDF Dateien wurden erfolgreich erstellt");
+                        mailmassager.setText(listOfCustomers.size()+ " PDF Dateien wurden erfolgreich erstellt");
                         permissionToSendEmails = true;
                         ProvideMails.counter = 0;
                     } catch (Exception e) {
@@ -105,9 +110,14 @@ public class Main extends Application{
                 if (permissionToSendEmails) {
                     permissionToSendEmails = false;
                     for (Customer customer : createListOfCustomers.getListOfCustomers()) {
+                        if(customer.getCountry().equals("CH")){
+                            ProvideMails.counter++;
+                            continue;
+                        }
                         mailThread(customer);
-
                     }
+
+
                     try {
                         while ( ProvideMails.counter!=createListOfCustomers.getListOfCustomers().size() ){
                             System.out.println(ProvideMails.counter);
@@ -120,14 +130,14 @@ public class Main extends Application{
                     }
                 }
                 else{
-                    mailmassager.setText("FEHLER: Emaisl Bereits versendet /  Keine PDFs vorher erstellt.");
+                    mailmassager.setText("FEHLER: Emails Bereits versendet /  Keine PDFs vorher erstellt.");
                 }
 
             }
         });
 
         exitButton.setOnAction(event -> System.exit(0));
-
+            vbox.setStyle("-fx-font-size: 12pt");
             primaryStage.setScene(scene);
             primaryStage.show();
         }
