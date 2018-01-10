@@ -12,7 +12,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -30,10 +29,6 @@ public class ProvideMails  {
         final String passwordOfHostinger = "9KTXaYyMxjzqolLJM";
         String mask = "Handy Lux";
 
-        final String usernameOfGmail = "billing.handylux@gmail.com";
-        final String passwordOfGmail = "Gmail291179";
-
-
 
         Properties propsOfHostinger = new Properties();
         propsOfHostinger.put("mail.smtp.auth", "true");
@@ -41,15 +36,8 @@ public class ProvideMails  {
         propsOfHostinger.put("mail.smtp.host", "mx1.hostinger.de");
         propsOfHostinger.put("mail.smtp.port", "587");
 
-        Properties propsOfGmail = new Properties();
-        propsOfGmail.put("mail.smtp.auth", "true");
-        propsOfGmail.put("mail.smtp.starttls.enable", "true");
-        propsOfGmail.put("mail.smtp.host", "smtp.gmail.com");
-        propsOfGmail.put("mail.smtp.port", "25");
-
         List<Properties> listOfProperties = new ArrayList<>();
         listOfProperties.add(propsOfHostinger);
-        listOfProperties.add(propsOfGmail);
 
         Session session;
         String fromMail;

@@ -22,36 +22,31 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         Label mailmassager;
-        Button openFile, createPDF, sendEmails, exitButton;
         VBox vbox = new VBox();
         mailmassager = new Label("Status:");
         mailmassager.setPrefSize(400, 30);
         vbox.getChildren().add(mailmassager);
-        openFile = new Button();
-        createPDF = new Button();
-        sendEmails = new Button();
-        exitButton = new Button();
-        openFile.setText("Datei auswählen");
-        createPDF.setText("PDF Dateien erstellen");
-        sendEmails.setText("Emails versenden");
-        exitButton.setText("Schließen");
+        Button openFile = new Button("Datei auswählen");
+        Button createPDF = new Button("PDF Dateien erstellen");
+        Button sendEmails = new Button("Emails versenden");
+        Button exitButton = new Button("Schließen");
+
         openFile.setPrefSize(400, 30);
         createPDF.setPrefSize(400, 30);
         sendEmails.setPrefSize(400, 30);
         exitButton.setPrefSize(400,30);
-        vbox.setAlignment(Pos.CENTER);
 
         vbox.getChildren().add(openFile);
         vbox.getChildren().add(createPDF);
         vbox.getChildren().add(sendEmails);
         vbox.getChildren().add(exitButton);
+        vbox.setStyle("-fx-font-size: 12pt");
 
         Scene scene = new Scene(vbox, 400, 175);
 
 
-        primaryStage.setTitle("Amazon PDF Creator v1.0.0");
-        primaryStage.setOnCloseRequest(event -> System.exit(0));
 
         openFile.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -63,7 +58,7 @@ public class Main extends Application{
                         mailmassager.setText("Status: Datei wurde ausgewählt");
                         permissionToCreatePDF=true;
                     }
-                    if(pathToFile==null){
+                    else{
                         mailmassager.setText("Status: Es wurde keine Datei ausgewählt");
                     }
                     System.out.println(pathToFile);
@@ -82,15 +77,12 @@ public class Main extends Application{
                     System.out.println("if");
                     try {
 
-                        ReadFile rf = new ReadFile(pathToFile);
-                        List<String> listOfRawCustomers = rf.getRawDataOfCustomers();
+                        List<String> listOfRawCustomers =new ReadFile(pathToFile).getRawDataOfCustomers();
                          createListOfCustomers = new CreateListOfCustomers(listOfRawCustomers);
                         List<Customer> listOfCustomers = createListOfCustomers.getListOfCustomers();
-                        String pathOfProps = ProvideResults.createFolder();
+                        String directoryPath = ProvideResults.createFolder();
                         for (Customer customer : listOfCustomers) {
-
-                                        CreatePdf p = new CreatePdf(pathOfProps);
-
+                                        CreatePdf p = new CreatePdf(directoryPath);
                                         p.manipulatePdf(customer);
                         }
                         mailmassager.setText(listOfCustomers.size()+ " PDF Dateien wurden erfolgreich erstellt");
@@ -99,6 +91,9 @@ public class Main extends Application{
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }
+                else{
+                    mailmassager.setText("PDF Dateien konnten nicht erstellt werden");
                 }
 
         }});
@@ -137,7 +132,10 @@ public class Main extends Application{
         });
 
         exitButton.setOnAction(event -> System.exit(0));
-            vbox.setStyle("-fx-font-size: 12pt");
+
+
+            primaryStage.setTitle("Amazon PDF Creator v1.0.0");
+            primaryStage.setOnCloseRequest(event -> System.exit(0));
             primaryStage.setScene(scene);
             primaryStage.show();
         }

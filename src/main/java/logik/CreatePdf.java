@@ -58,13 +58,6 @@ class CreatePdf {
 
     protected void manipulatePdf(Customer customer) throws Exception {
         this.customer=customer;
-        LocalTime localTime = LocalTime.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH-mm-ss-ms");
-
-        Date date = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("dd. MMM. yyyy");
-        String datum= df.format(date);
-
 
         String filename="Rechnung"+ "_" + customer.getBestellnummer() + ".pdf";
         customer.setSavedFileName(filename);

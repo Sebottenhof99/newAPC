@@ -30,8 +30,6 @@ public class ProvideResults {
 
         String wholePath = root.toString()+ File.separator + year + File.separator + month + File.separator +day+File.separator;
         Path dist = Paths.get(wholePath);
-        // Files.createDirectories( Paths.get(wholePath));
-
 
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(work)) {
             for (Path path : directoryStream) {

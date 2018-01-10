@@ -63,7 +63,6 @@ public class CalculateValues {
 
     }
 
-
     public static String calculateShippingCostNetto(Customer c){
         try {
 
@@ -88,21 +87,6 @@ public class CalculateValues {
         }
     }
 
-
-
-    public static String calculateNettoPrice(String bruttoValue){
-        try {
-            bruttoValue = bruttoValue.replace(",", ".");
-            double nettoValue = Double.parseDouble(bruttoValue);
-            nettoValue = Math.round((nettoValue / 1.19) * 100.0) / 100.0;
-            DecimalFormat df = new DecimalFormat(",##0.00");
-            String netto = df.format(nettoValue);
-            return netto;
-        }catch (NumberFormatException e){
-            return "0,00";
-        }
-    }
-
     public static String calculateWholePrice(Customer c) {
 
         try {
@@ -122,7 +106,6 @@ public class CalculateValues {
             return "0,00";
         }
     }
-
 
     public static String calculateMwsTSum(Customer customer){
         double result = Double.parseDouble(customer.getPrice().replace(",",".")) - Double.parseDouble(customer.getNettoPrice().replace(",","."));
@@ -173,7 +156,7 @@ public class CalculateValues {
     public static String splitBestelldatum(String rawDate){
         String date ="";
         final String SEPERATOR=".";
-        if(rawDate.length()>10){
+        if(rawDate.length()>=10){
             date+=rawDate.substring(8,10);
             date+=SEPERATOR;
             date+=rawDate.substring(5,7);

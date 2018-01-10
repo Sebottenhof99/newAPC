@@ -10,7 +10,6 @@ public class Customer {
     private String data;
     private String savedFileName;
 
-
     private String bestelldatum;
     private String bestellnummer;
     private String name;
@@ -37,8 +36,7 @@ public class Customer {
         return CalculateValues.calculateWholePrice(this);
     }
     public String getNettoPrice(){ return CalculateValues.calculateWholeNettoPrice(this);}
-    public String getMwsTSum(){
-        return CalculateValues.calculateMwsTSum(this);
+    public String getMwsTSum(){ return CalculateValues.calculateMwsTSum(this);
     }
 
     public void distributeData(){

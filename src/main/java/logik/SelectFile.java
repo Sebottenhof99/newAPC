@@ -1,10 +1,7 @@
 package logik;
 
-import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.File;
 
@@ -13,15 +10,7 @@ import java.io.File;
  */
 public class SelectFile {
 
-
-    public String getFile() {
-        return file;
-    }
-
-
     private String file = null;
-
-
     private FileChooser fileChooser = new FileChooser();
 
 
@@ -37,12 +26,10 @@ public class SelectFile {
         if(chosenFile != null) {
             path = chosenFile.getPath();
         } else {
-            //default return value
             path = null;
         }
         primaryStage.setOnCloseRequest(event -> System.exit(0));
 
-        System.out.println(path);
         return path;
     }
 }
