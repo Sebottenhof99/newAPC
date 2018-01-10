@@ -29,13 +29,13 @@ public class Customer {
 
     }
 
-
-
-
     public String getPrice(){
         return CalculateValues.calculateWholePrice(this);
     }
-    public String getNettoPrice(){ return CalculateValues.calculateWholeNettoPrice(this);}
+
+    public String getNettoPrice(){ return CalculateValues.calculateWholeNettoPrice(this);
+    }
+
     public String getMwsTSum(){ return CalculateValues.calculateMwsTSum(this);
     }
 
@@ -51,8 +51,6 @@ public class Customer {
         country=values[Defines.Customer.LAND];
         postalCode=values[Defines.Customer.PLZ];
         bestelldatum=values[Defines.Customer.BESTELLDATUM];
-
-
     }
 
    public void addArticleFromRawData(){
@@ -69,45 +67,59 @@ public class Customer {
     public String getShippingCostNetto() {
         return CalculateValues.calculatePriceWithoutMWST(this.getShippingCost(),CalculateValues.calculateShippingCostNetto(this));
     }
+
     public String getShippingCost() {
         return CalculateValues.calculateShippingCost(this);
     }
+
     public String getShippingCostMwSt(){
         return CalculateValues.calculateMwsTShippingSum(this);
     }
+
     public String getBestelldatum() {
         return CalculateValues.splitBestelldatum(this.bestelldatum);
     }
+
     public String getBestellnummer() {
         return bestellnummer;
     }
+
     public String getName() {
         return name;
     }
+
     public String getMail() {
         return mail;
     }
+
     public String getAdress1() {
         return adress1;
     }
+
     public String getAdress2() {
         return adress2;
     }
+
     public String getCity() {
         return city;
     }
+
     public String getCountry() {
         return country;
     }
+
     public String getPostalCode() {
         return postalCode;
     }
+
     public List<Article> getListOfAllArticles() {
         return listOfAllArticles;
     }
+
     public String getSavedFileName() {
         return savedFileName;
     }
+
     public void setSavedFileName(String savedFileName) {
         this.savedFileName = savedFileName;
     }

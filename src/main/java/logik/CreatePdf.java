@@ -1,65 +1,41 @@
 
  package logik;
 
-  /*
- * Created by Antoshka on 02.01.2018.
- */
-
  import java.io.File;
  import java.io.FileInputStream;
  import java.io.FileOutputStream;
  import java.io.IOException;
- import java.text.SimpleDateFormat;
  import java.time.LocalDate;
- import java.time.LocalTime;
  import java.time.format.DateTimeFormatter;
  import java.time.format.FormatStyle;
- import java.util.Date;
  import java.util.List;
  import java.util.Properties;
- /** Created by fisch on 23.11.2017.
- */
+ import com.itextpdf.io.image.ImageDataFactory;
 
-import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.color.Color;
-import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.border.Border;
-import com.itextpdf.layout.border.SolidBorder;
-import com.itextpdf.layout.element.*;
-import com.itextpdf.layout.property.HorizontalAlignment;
-import com.itextpdf.layout.property.TextAlignment;
-import org.junit.Test;
+ import com.itextpdf.kernel.color.Color;
+ import com.itextpdf.kernel.geom.PageSize;
+ import com.itextpdf.kernel.pdf.PdfDocument;
+ import com.itextpdf.kernel.pdf.PdfWriter;
+ import com.itextpdf.layout.Document;
+ import com.itextpdf.layout.border.Border;
+ import com.itextpdf.layout.element.*;
+ import com.itextpdf.layout.property.HorizontalAlignment;
+ import com.itextpdf.layout.property.TextAlignment;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
-
-
-class CreatePdf {
+ public class CreatePdf {
     Customer customer;
     String pathOfPropsFile;
     public CreatePdf(String pathOfPropsFile){
         this.pathOfPropsFile=pathOfPropsFile;
     }
     public  final String DEST = "C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\Ama_Rechnungen\\work\\";
-    public  final String LOGO = this.getClass().getClassLoader().getResource("handy-lux.jpg").toExternalForm().replace("file:\\","").trim();
+    public  final String LOGO = this.getClass().getClassLoader().getResource(Defines.Paths.PATH_TO_LOGO).toExternalForm().replace("file:\\","").trim();
 
     protected void manipulatePdf(Customer customer) throws Exception {
-        this.customer=customer;
+        this.customer = customer;
 
-        String filename="Rechnung"+ "_" + customer.getBestellnummer() + ".pdf";
+        String filename = "Rechnung"+ "_" + customer.getBestellnummer() + ".pdf";
         customer.setSavedFileName(filename);
         PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DEST + filename));
 
@@ -191,7 +167,6 @@ class CreatePdf {
 
         RECHNUNGSNUMMER+= LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)).replace(".","") + "A";
         Properties p = new Properties();
-        //File f = new File("C:/Users/"+System.getProperty("user.name")+"/Desktop/Rechnungen");
         File f = new File(pathOfPropsFile+"props.txt");
 
         if (f.exists()) {
@@ -232,11 +207,8 @@ class CreatePdf {
                                 break;
                             case 5:table.addCell(new Cell(1,15).add((String)list.get(i).getPREIS_MIT_RABATTE() ));
                                 break;
-
-                        }
-
                     }
-
+                }
             }
         }
 

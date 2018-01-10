@@ -1,6 +1,6 @@
 package logik;
 
-import javafx.beans.value.ObservableNumberValue;
+
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -99,7 +99,6 @@ public class CalculateValues {
             }
             double versand = Double.parseDouble(c.getShippingCost().replace(",","."));
             price+=versand;
-            System.out.println(price);
             DecimalFormat df = new DecimalFormat(",##0.00");
             return df.format(price);
         }catch (NumberFormatException e){

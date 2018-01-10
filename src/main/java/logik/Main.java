@@ -3,7 +3,6 @@ package logik;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -74,7 +73,6 @@ public class Main extends Application{
             @Override
             public void handle(ActionEvent event) {
                 if(permissionToCreatePDF){
-                    System.out.println("if");
                     try {
 
                         List<String> listOfRawCustomers =new ReadFile(pathToFile).getRawDataOfCustomers();
@@ -87,6 +85,7 @@ public class Main extends Application{
                         }
                         mailmassager.setText(listOfCustomers.size()+ " PDF Dateien wurden erfolgreich erstellt");
                         permissionToSendEmails = true;
+                        permissionToCreatePDF = false;
                         ProvideMails.counter = 0;
                     } catch (Exception e) {
                         e.printStackTrace();

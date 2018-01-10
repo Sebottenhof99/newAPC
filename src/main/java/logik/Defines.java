@@ -1,8 +1,6 @@
 package logik;
 
-/**
- * Created by fisch on 29.11.2017.
- */
+
 public class Defines{
 
     public class Customer{
@@ -28,9 +26,9 @@ public class Defines{
 
         public static final int SIZE_OF_ARTICLE_LIST = 6;
     }
-    public class Mails{
-        public static final int HOSTINGEN = 0;
-        public static final int GMAIL = 1;
+
+    public class Paths{
+       public static final String PATH_TO_LOGO = "handy-lux.jpg";
     }
 
 }

@@ -10,11 +10,10 @@ import java.io.File;
  */
 public class SelectFile {
 
-    private String file = null;
     private FileChooser fileChooser = new FileChooser();
 
-
     public String getFilePath(Stage primaryStage){
+
 
         FileChooser.ExtensionFilter extentionFilter = new FileChooser.ExtensionFilter("Text Dateien (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extentionFilter);
@@ -23,11 +22,12 @@ public class SelectFile {
         File chosenFile = fileChooser.showOpenDialog(null);
 
         String path;
-        if(chosenFile != null) {
-            path = chosenFile.getPath();
-        } else {
+        try {
+             path = chosenFile.getPath();
+        }catch (NullPointerException e){
             path = null;
         }
+
         primaryStage.setOnCloseRequest(event -> System.exit(0));
 
         return path;
