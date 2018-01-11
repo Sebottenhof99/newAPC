@@ -113,6 +113,7 @@
 
         doc.add(table);
         doc.add(new Paragraph());
+        doc.add(new Paragraph());
 
         Table table2 = new Table(100)
                 .setTextAlignment(TextAlignment.LEFT)
