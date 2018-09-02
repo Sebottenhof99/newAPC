@@ -16,23 +16,22 @@ public class DuplicateDetector {
       List<Customer> customerToProcess = customerFromActualList;
       try {
           ArrayList<String> orderNUmbers = daoGetActualOrderSet.getLastAddedOrderNumber();
+          System.out.println("Size of db list: " + orderNUmbers.size());
+
           if (orderNUmbers==null||orderNUmbers.isEmpty()){
               System.out.println("Add Actual Order numbers to db");
               daoUpdateOrderNumberList.updateDB(customerFromActualList);
               return (ArrayList<Customer>) customerFromActualList;
           }else{
 
+
               for (int i = 0; i <customerToProcess.size() ; i++) {
                   Customer customer = customerToProcess.get(i);
-
-                  for (int j = 0; j <orderNUmbers.size() ; j++) {
-                      if (customer.getBestellnummer().equalsIgnoreCase(orderNUmbers.get(j))){
-                          System.out.println("Bestellnummer "+ customer.getBestellnummer()+" ist ein Duplikat und wird aus der Liste entfernt ");
-                          customerToProcess.remove(customer);
-                          break;
-                      }
-
+                  if(orderNUmbers.contains(customer.getBestellnummer())){
+                      System.out.println("CONTAINS");
+                      customerToProcess.remove(i);
                   }
+
               }
 
 
