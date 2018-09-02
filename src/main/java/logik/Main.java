@@ -29,21 +29,18 @@ public class Main extends Application{
         vbox.getChildren().add(mailmassager);
         Button openFile = new Button("Datei auswählen");
         Button createPDF = new Button("PDF Dateien erstellen");
-        Button sendEmails = new Button("Emails versenden");
         Button exitButton = new Button("Schließen");
 
         openFile.setPrefSize(400, 30);
         createPDF.setPrefSize(400, 30);
-        sendEmails.setPrefSize(400, 30);
         exitButton.setPrefSize(400,30);
 
         vbox.getChildren().add(openFile);
         vbox.getChildren().add(createPDF);
-        vbox.getChildren().add(sendEmails);
         vbox.getChildren().add(exitButton);
         vbox.setStyle("-fx-font-size: 12pt");
 
-        Scene scene = new Scene(vbox, 400, 175);
+        Scene scene = new Scene(vbox, 400, 140);
 
 
 
@@ -108,5 +105,8 @@ public class Main extends Application{
             primaryStage.show();
         }
 
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 }
