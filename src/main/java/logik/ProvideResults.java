@@ -12,9 +12,9 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class ProvideResults {
 
-    public static void moveAllFilesToTargetFolder() throws IOException {
-        Path root = Paths.get("C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\Ama_Rechnungen");
-        Path work = Paths.get("C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\Ama_Rechnungen\\work");
+
+    public static String getActualInvoicePath(){
+        final String BASIC_PATH = "C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\Ama_Rechnungen";
         Date date = new Date();
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
         String year = yearFormat.format(date);
@@ -22,25 +22,21 @@ public class ProvideResults {
         String month = monthFormat.format(date);
         SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
         String day = dayFormat.format(date);
+        StringBuilder stringBuilder = new StringBuilder(BASIC_PATH);
+        stringBuilder.append(File.separator);
+        stringBuilder.append(year);
+        stringBuilder.append(File.separator);
+        stringBuilder.append(month);
+        stringBuilder.append(File.separator);
+        stringBuilder.append(day);
+        stringBuilder.append(File.separator);
+        String fullPath = stringBuilder.toString();
 
-
-        String wholePath = root.toString()+ File.separator + year + File.separator + month + File.separator +day+File.separator;
-        Path dist = Paths.get(wholePath);
-
-        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(work)) {
-            for (Path path : directoryStream) {
-                Path d2 = dist.resolve(path.getFileName());
-                Files.move(path, d2, REPLACE_EXISTING);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-
-
+        return fullPath;
     }
 
     public static String createFolder() throws IOException{
+
         Path root = Paths.get("C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\Ama_Rechnungen");
         Date date = new Date();
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");

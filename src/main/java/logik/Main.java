@@ -8,12 +8,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 /**
  * Created by Antoshka on 26.12.2017.
  */
 public class Main extends Application{
+    private static Logger logger = LoggerFactory.getLogger(Main.class);
     private boolean permissionToCreatePDF = false;
     private boolean permissionToSendEmails = false;
     private String pathToFile = null;

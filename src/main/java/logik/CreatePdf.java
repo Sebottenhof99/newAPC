@@ -29,7 +29,7 @@
     public CreatePdf(String pathOfPropsFile){
         this.pathOfPropsFile=pathOfPropsFile;
     }
-    public  final String DEST = "C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\Ama_Rechnungen\\work\\";
+    public  final String DEST = ProvideResults.getActualInvoicePath();
     public  final String LOGO = this.getClass().getClassLoader().getResource(Defines.Paths.PATH_TO_LOGO).toExternalForm().replace("file:\\","").trim();
 
     protected void manipulatePdf(Customer customer) throws Exception {
@@ -108,7 +108,7 @@
 
         table.addCell(new Cell().add("Datum")).setFontColor(Color.DARK_GRAY).setBold();
         table.addCell(new Cell().add("Bestellnummer")).setFontColor(Color.DARK_GRAY).setBold();;
-        table.addCell(new Cell().add(LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))));
+        table.addCell(new Cell().add(customer.getBestelldatum()));
         table.addCell(new Cell().add(customer.getBestellnummer()));
 
         doc.add(table);
@@ -167,7 +167,6 @@
         String RECHNUNGSNUMMER="";
 
         RECHNUNGSNUMMER+= LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)).replace(".","") + "A";
-        //RECHNUNGSNUMMER+="14012018A";
         Properties p = new Properties();
         File f = new File(pathOfPropsFile+"props.txt");
 
