@@ -13,7 +13,8 @@ public class DuplicateDetector {
 
   public List<Customer>filterDuplicate(List<Customer> customerFromActualList){
 
-      List<Customer> customerToProcess = customerFromActualList;
+      List<Customer> customerToProcess = new ArrayList<>();
+      customerToProcess.addAll(customerFromActualList);
       try {
           ArrayList<String> orderNUmbers = daoGetActualOrderSet.getLastAddedOrderNumber();
           System.out.println("Size of db list: " + orderNUmbers.size());
