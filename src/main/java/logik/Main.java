@@ -79,7 +79,8 @@ public class Main extends Application{
                         List<String> listOfRawCustomers =new ReadFile(pathToFile).getRawDataOfCustomers();
                          createListOfCustomers = new CreateListOfCustomers(listOfRawCustomers);
                         List<Customer> listOfCustomers = createListOfCustomers.getListOfCustomers();
-                        String directoryPath = ProvideResults.createFolder();
+                        ProvideResults.createFolder();
+                        String directoryPath = ProvideResults.getActualInvoicePath();
                         for (Customer customer : listOfCustomers) {
                                         CreatePdf p = new CreatePdf(directoryPath);
                                         p.manipulatePdf(customer);

@@ -18,16 +18,16 @@ public class ProvideResults {
         Date date = new Date();
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
         String year = yearFormat.format(date);
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM");
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
         String month = monthFormat.format(date);
         SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
         String day = dayFormat.format(date);
         StringBuilder stringBuilder = new StringBuilder(BASIC_PATH);
         stringBuilder.append(File.separator);
         stringBuilder.append(year);
-        stringBuilder.append(File.separator);
+        stringBuilder.append("-");
         stringBuilder.append(month);
-        stringBuilder.append(File.separator);
+        stringBuilder.append("-");
         stringBuilder.append(day);
         stringBuilder.append(File.separator);
         String fullPath = stringBuilder.toString();
@@ -35,21 +35,11 @@ public class ProvideResults {
         return fullPath;
     }
 
-    public static String createFolder() throws IOException{
+    public static void createFolder() throws IOException{
 
-        Path root = Paths.get("C:\\Users\\"+System.getProperty("user.name")+"\\Desktop\\Ama_Rechnungen");
-        Date date = new Date();
-        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-        String year = yearFormat.format(date);
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM");
-        String month = monthFormat.format(date);
-        SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
-        String day = dayFormat.format(date);
-
-        String wholePath = root.toString()+ File.separator + year + File.separator + month + File.separator +day+File.separator;
+       String wholePath = getActualInvoicePath();
         Files.createDirectories( Paths.get(wholePath));
 
-        return wholePath;
     }
 
 
