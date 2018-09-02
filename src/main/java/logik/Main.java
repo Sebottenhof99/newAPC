@@ -85,6 +85,7 @@ public class Main extends Application{
 
                         List<Customer> listOfCustomersAfterFilter =  duplicateDetector.filterDuplicate(listOfCustomers);
 
+                        System.out.println("Größe der Liste nach der Filtrierung "+ listOfCustomersAfterFilter.size());
                         ProvideResults.createFolder();
                         String directoryPath = ProvideResults.getActualInvoicePath();
                         for (Customer customer : listOfCustomersAfterFilter) {

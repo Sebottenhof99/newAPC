@@ -13,18 +13,18 @@ public class DAOGetActualOrderSet {
     public ArrayList<String> getLastAddedOrderNumber() throws SQLException {
         ArrayList<String> orderNumber  = new ArrayList<>();
 
-        String getMaterialIdQuery = "SELECT OrderNumber "  +
+        String sqlQuery = "SELECT OrderNumber "  +
                 "FROM OrderNumber ";
 
 
 
-        System.out.println(getMaterialIdQuery);
+        System.out.println(sqlQuery);
 
         Connection con = DbConnectionSingletonFactory.getConnection();
 
         Statement stmt = null;
         stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(getMaterialIdQuery);
+        ResultSet rs = stmt.executeQuery(sqlQuery);
         while (rs.next()) {
 
             String name = rs.getString("OrderNumber");
