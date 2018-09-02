@@ -18,7 +18,9 @@ public class DuplicateDetector {
               return (ArrayList<Customer>) customerFromActualList;
           }else{
 
-              for (Customer customer:customerToProcess) {
+              for (int i = 0; i <customerToProcess.size() ; i++) {
+                  Customer customer = customerToProcess.get(i);
+
                   for (int j = 0; j <orderNUmbers.size() ; j++) {
                       if (customer.getBestellnummer().equalsIgnoreCase(orderNUmbers.get(j))){
                           System.out.println("Bestellnummer "+ customer.getBestellnummer()+" ist ein Duplikat und wird aus der Liste entfernt ");
