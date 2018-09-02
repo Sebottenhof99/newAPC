@@ -23,8 +23,10 @@ public class Main extends Application{
     private String pathToFile = null;
     CreateListOfCustomers createListOfCustomers = null;
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+
 
         Label mailmassager;
         VBox vbox = new VBox();
@@ -79,13 +81,17 @@ public class Main extends Application{
                         List<String> listOfRawCustomers =new ReadFile(pathToFile).getRawDataOfCustomers();
                          createListOfCustomers = new CreateListOfCustomers(listOfRawCustomers);
                         List<Customer> listOfCustomers = createListOfCustomers.getListOfCustomers();
+                        DuplicateDetector duplicateDetector = new DuplicateDetector();
+
+                        List<Customer> listOfCustomersAfterFilter =  duplicateDetector.filterDuplicate(listOfCustomers);
+
                         ProvideResults.createFolder();
                         String directoryPath = ProvideResults.getActualInvoicePath();
-                        for (Customer customer : listOfCustomers) {
+                        for (Customer customer : listOfCustomersAfterFilter) {
                                         CreatePdf p = new CreatePdf(directoryPath);
                                         p.manipulatePdf(customer);
                         }
-                        mailmassager.setText(listOfCustomers.size()+ " PDF Dateien wurden erfolgreich erstellt");
+                        mailmassager.setText(listOfCustomersAfterFilter.size()+ " PDF Dateien wurden erfolgreich erstellt");
                         permissionToSendEmails = true;
                         permissionToCreatePDF = false;
 
