@@ -47,6 +47,7 @@ public class MainController implements Initializable {
 
             List<Customer> listOfCustomersAfterFilter =  duplicateDetector.filterDuplicate(listOfCustomers);
 
+            System.out.println("Größe der Liste nach der Filtrierung "+ listOfCustomersAfterFilter.size());
             ProvideResults.createFolder();
             String directoryPath = ProvideResults.getActualInvoicePath();
             for (Customer customer : listOfCustomersAfterFilter) {
@@ -54,7 +55,7 @@ public class MainController implements Initializable {
                 p.manipulatePdf(customer);
             }
             status.setText(listOfCustomersAfterFilter.size()+ " PDF Dateien wurden erfolgreich erstellt");
-            buttonCreatePDFs.setDisable(true);
+
 
         } catch (Exception e) {
             status.setText("Es ist ein Fehler aufgetreten. Bitte den Administrator kontaktieren");
