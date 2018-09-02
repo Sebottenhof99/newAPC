@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="180" minWidth="400" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+
+   <children>
+      <Label prefHeight="30.0" text="Status:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="buttonOpenFile" layoutY="30.0" mnemonicParsing="false" onAction="#openFileButtonPressed" prefHeight="50.0" prefWidth="400.0" text="Datei öffnen">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonCreatePDFs" layoutY="80.0" mnemonicParsing="false" onAction="#createPDFButtonPressed" prefHeight="50.0" prefWidth="400.0" text="PDF Dateien erstellen">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="closeButton" layoutY="130.0" mnemonicParsing="false" onAction="#closeApplication" prefHeight="50.0" prefWidth="400.0" text="Schließen">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Label fx:id="status" layoutX="70.0" prefHeight="30.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

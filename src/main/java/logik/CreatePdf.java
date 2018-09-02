@@ -33,7 +33,7 @@
     public  final String DEST = ProvideResults.getActualInvoicePath();
     public  final String LOGO = this.getClass().getClassLoader().getResource(Defines.Paths.PATH_TO_LOGO).toExternalForm().replace("file:\\","").trim();
 
-    protected void manipulatePdf(Customer customer) throws Exception {
+    public void manipulatePdf(Customer customer) throws Exception {
         this.customer = customer;
 
         String filename = "Rechnung"+ "_" + customer.getBestellnummer() + ".pdf";
