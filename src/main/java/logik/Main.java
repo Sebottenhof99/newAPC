@@ -86,7 +86,7 @@ public class Main extends Application{
                         mailmassager.setText(listOfCustomers.size()+ " PDF Dateien wurden erfolgreich erstellt");
                         permissionToSendEmails = true;
                         permissionToCreatePDF = false;
-                        ProvideMails.counter = 0;
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -97,38 +97,7 @@ public class Main extends Application{
 
         }});
 
-        sendEmails.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
 
-                if (permissionToSendEmails) {
-                    permissionToSendEmails = false;
-                    for (Customer customer : createListOfCustomers.getListOfCustomers()) {
-                        if(customer.getCountry().equals("CH")){
-                            ProvideMails.counter++;
-                            continue;
-                        }
-                        mailThread(customer);
-                    }
-
-
-                    try {
-                        while ( ProvideMails.counter!=createListOfCustomers.getListOfCustomers().size() ){
-                            System.out.println(ProvideMails.counter);
-
-                        }
-                        ProvideResults.moveAllFilesToTargetFolder();
-                        mailmassager.setText("Status: " + ProvideMails.counter + " Emails wurden erfolgreich versendet!");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                else{
-                    mailmassager.setText("FEHLER: Emails Bereits versendet /  Keine PDFs vorher erstellt.");
-                }
-
-            }
-        });
 
         exitButton.setOnAction(event -> System.exit(0));
 
@@ -139,16 +108,5 @@ public class Main extends Application{
             primaryStage.show();
         }
 
-    public void mailThread(Customer customer){
-        Runnable task = new Runnable() {
-            @Override
-            public void run() {
-                new ProvideMails().sendMail(customer);
 
-            }};
-
-        Thread thread = new Thread(task);
-        thread.start();
-    }
-   // }
 }
