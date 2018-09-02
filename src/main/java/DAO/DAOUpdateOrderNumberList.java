@@ -15,14 +15,20 @@ public class DAOUpdateOrderNumberList {
 
     public void updateDB(List<Customer> newInputOfOrderNumber) throws SQLException {
 
+        System.out.println("<<<"+newInputOfOrderNumber.size()+">>>");
+
 
         ArrayList<String> sqlOrderNUmber = new ArrayList<>();
 
         for (int i = 0; i < newInputOfOrderNumber.size() ; i++) {
-            sqlOrderNUmber.add("('"+newInputOfOrderNumber.get(i).getBestellnummer()+"')");
+            String s = "('";
+            s+= newInputOfOrderNumber.get(i).getBestellnummer();
+            s+="')";
+            System.out.println(s);
+            sqlOrderNUmber.add(s);
         }
 
-        String sqlQuery = "INSERT INTO OrderNumber (`OrderNumber`) VALUES ";
+        String sqlQuery = "INSERT INTO OrderNumber (OrderNumber) VALUES ";
 
         for (int i = 0; i <sqlOrderNUmber.size() ; i++) {
 
@@ -44,8 +50,8 @@ public class DAOUpdateOrderNumberList {
 
         Statement stmt = null;
         stmt = con.createStatement();
-        stmt.execute(delTabelle);
-       stmt.execute(sqlQuery);
+        stmt.executeUpdate(delTabelle);
+       stmt.executeUpdate(sqlQuery);
 
         con.close();
 
