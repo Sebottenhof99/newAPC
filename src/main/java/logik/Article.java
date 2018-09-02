@@ -29,7 +29,7 @@ public class Article {
         stückzahl = (positionsOfRawData[Defines.Article.STÜCKZAHL]);
         artikelbezeichnung = (positionsOfRawData[Defines.Article.ARTIKLEBEZEICHNUNG]);
         währung = (positionsOfRawData[Defines.Article.WÄHRUNG]);
-        preisMwst = (positionsOfRawData[Defines.Article.PREIS_MWST]);
+        preisMwst = (positionsOfRawData[Defines.Article.PREIS_MWST].replace(".",","));
         versandkosten = (positionsOfRawData[Defines.Article.VERSANDKOSTEN]);
         versandkostenMwst = (positionsOfRawData[Defines.Article.VERSANDKOSTEN_MWST]);
         preisMitRabatt = CalculateValues.calculateItemPrice(positionsOfRawData[Defines.Article.PREIS_OHNE_RABATTE], positionsOfRawData[Defines.Article.RABATTE]); //Artikelpreis

@@ -4,7 +4,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import logik.*;
-import org.slf4j.Logger;
 
 import java.net.URL;
 import java.util.List;
@@ -58,6 +57,7 @@ public class MainController implements Initializable {
             buttonCreatePDFs.setDisable(true);
 
         } catch (Exception e) {
+            status.setText("Es ist ein Fehler aufgetreten. Bitte den Administrator kontaktieren");
             e.printStackTrace();
         }
     }
