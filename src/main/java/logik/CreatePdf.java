@@ -33,7 +33,7 @@
     public  final String DEST = ProvideResults.getActualInvoicePath();
     public  final String LOGO = this.getClass().getClassLoader().getResource(Defines.Paths.PATH_TO_LOGO).toExternalForm().replace("file:\\","").trim();
 
-    protected void manipulatePdf(Customer customer) throws Exception {
+    public void manipulatePdf(Customer customer) throws Exception {
         this.customer = customer;
 
         String filename = "Rechnung"+ "_" + customer.getBestellnummer() + ".pdf";
@@ -76,13 +76,14 @@
         Paragraph dataOfCustomer = new Paragraph()
                 .setFontSize(10)
                 .setFixedLeading(10);
-        dataOfCustomer.add(nameOfCustomer);
-        dataOfCustomer.add( "\n" +
-                customer.getAdress1() + "\n" +
-                customer.getAdress2() + "\n" +
-                customer.getPostalCode() + " " + customer.getCity() + "\n" +
-                customer.getCountry() + "\n\n" +
-                customer.getMail());
+        dataOfCustomer.add(customer.getName() + "\n");
+        dataOfCustomer.add(customer.getAdress1() + "\n");
+        if(customer.getAdress2() != null && !customer.getAdress2().isEmpty()){
+            dataOfCustomer.add(customer.getAdress2() + "\n");
+        }
+        dataOfCustomer.add(customer.getPostalCode() + "\n");
+        dataOfCustomer.add(customer.getCountry() + "\n\n");
+        dataOfCustomer.add(customer.getMail());
 
         Cell käufer = new Cell().add(dataOfCustomer).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT);
 
@@ -203,7 +204,11 @@
                                 break;
                             case 2:table.addCell(new Cell(1,10).add((String) list.get(i).getPREIS_OHNE_MWST()));
                                 break;
-                             case 3:table.addCell(new Cell(1,5).add((String) "19%"));
+                             case 3:
+                                 table.addCell(new Cell(1,5).add((String) "19%"));
+                                 if(customer.getCountry().equalsIgnoreCase("CH")){
+                                 table.addCell(new Cell(1,5).add((String) "0%"));
+                             }
                                 break;
                             case 4:table.addCell(new Cell(1,10).add((String) list.get(i).getPREIS_MWST()));
                                 break;
