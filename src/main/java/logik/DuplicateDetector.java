@@ -24,12 +24,10 @@ public class DuplicateDetector {
               return (ArrayList<Customer>) customerFromActualList;
           }else{
 
-
               for (int i = 0; i <customerToProcess.size() ; i++) {
                   Customer customer = customerToProcess.get(i);
                   if(orderNUmbers.contains(customer.getBestellnummer())){
-                      System.out.println("CONTAINS");
-                      customerToProcess.remove(i);
+                     customerToProcess.remove(i--);
                   }
 
               }
