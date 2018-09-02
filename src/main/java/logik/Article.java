@@ -1,5 +1,7 @@
 package logik;
 
+import logik.defines.Defines;
+
 /**
  * Created by Antoshka on 31.12.2017.
  */

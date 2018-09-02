@@ -21,6 +21,7 @@
  import com.itextpdf.layout.element.*;
  import com.itextpdf.layout.property.HorizontalAlignment;
  import com.itextpdf.layout.property.TextAlignment;
+ import logik.defines.Defines;
 
 
  public class CreatePdf {

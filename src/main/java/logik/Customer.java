@@ -1,5 +1,7 @@
 package logik;
 
+import logik.defines.Defines;
+
 import java.util.ArrayList;
 import java.util.List;
 
